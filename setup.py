@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="terminal_ai",  # Change the package name
+    name="ai-terminator",  # Change the package name
     version="0.1.0",
     description="A terminal AI assistant that can execute system commands and provide general information.",
     author="Himanshu sanecha",
