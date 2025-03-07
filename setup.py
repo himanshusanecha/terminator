@@ -11,7 +11,7 @@ pull_default_model()
 
 setup(
     name="ai-terminator",  # Change the package name
-    version="1.0.0",
+    version="1.0.4",
     description="A terminal AI assistant that can execute system commands and provide general information.",
     author="Himanshu sanecha",
     author_email="himanshusanecha@gmail.com",
