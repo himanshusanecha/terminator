@@ -1,12 +1,27 @@
-stop_loading = None
+import os
+import subprocess
+import readline
+import sys
+from colorama import init, Fore, Style
+import ollama
+import re
+import signal
+import threading
+import itertools
+import time
+from constants import constants
+from config import config
+
+# Load command history (Persistent across sessions)
+HISTORY_FILE = os.path.expanduser("~/.terminal_ai_history")
 
 def show_loading_spinner(message="Processing..."):
     """Display a loading spinner while LLaMA is processing."""
     spinner = itertools.cycle(["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"])
-    sys.stdout.write(COLORS["info"] + message + " ")
+    sys.stdout.write(constants.COLORS["info"] + message + " ")
     sys.stdout.flush()
 
-    while not stop_loading.is_set():
+    while not config.stop_loading.is_set():
         sys.stdout.write(next(spinner) + " ")
         sys.stdout.flush()
         time.sleep(0.1)

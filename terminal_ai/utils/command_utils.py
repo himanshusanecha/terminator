@@ -1,3 +1,16 @@
+import os
+import subprocess
+import readline
+import sys
+from colorama import init, Fore, Style
+import ollama
+import re
+import signal
+import threading
+import itertools
+import time
+from constants import constants
+
 def check_dependency_installed(check_command):
     """Run the dependency check command and determine if dependencies are installed."""
     try:
@@ -10,28 +23,28 @@ def install_dependencies(install_command):
     """Install necessary dependencies."""
     try:
         subprocess.run(install_command, shell=True, check=True)
-        print(COLORS["success"] + "Dependencies installed successfully!")
+        print(constants.COLORS["success"] + "Dependencies installed successfully!")
     except subprocess.CalledProcessError:
-        print(COLORS["error"] + "Failed to install dependencies. Try manually.")
+        print(constants.COLORS["error"] + "Failed to install dependencies. Try manually.")
 
 
 def execute_final_command(final_command):
     """Execute the final user command after confirming dependencies."""
-    confirm = input(COLORS["input"] + f"Do you want to execute the final command: {final_command}? (yes/no): ")
+    confirm = input(constants.COLORS["input"] + f"Do you want to execute the final command: {final_command}? (yes/no): ")
 
     if confirm.lower() == "yes":
-        print(COLORS["info"] + f"Executing: {final_command}")
+        print(constants.COLORS["info"] + f"Executing: {final_command}")
 
         result = subprocess.run(final_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         # Print the command output
         if result.stdout:
-            print(COLORS["success"] + result.stdout)
+            print(constants.COLORS["success"] + result.stdout)
         if result.stderr:
-            print(COLORS["error"] + result.stderr)
+            print(constants.COLORS["error"] + result.stderr)
 
     else:
-        print(COLORS["warning"] + "Command execution aborted.")
+        print(constants.COLORS["warning"] + "Command execution aborted.")
 
 def extract_commands(response):
     """Extract the check, install, and final command from LLaMA response."""
