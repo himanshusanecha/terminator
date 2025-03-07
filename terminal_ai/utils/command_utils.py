@@ -9,7 +9,7 @@ import signal
 import threading
 import itertools
 import time
-from constants import constants
+from terminal_ai.constants import constants
 
 def check_dependency_installed(check_command):
     """Run the dependency check command and determine if dependencies are installed."""

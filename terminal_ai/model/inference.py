@@ -1,5 +1,5 @@
 import threading
-from utils import utils
+from terminal_ai.utils import utils
 import os
 import subprocess
 import readline
@@ -11,8 +11,8 @@ import signal
 import threading
 import itertools
 import time
-from constants import constants
-from config import config
+from terminal_ai.constants import constants
+from terminal_ai.config import config
 
 def query_llama(prompt):
     """Send a request to LLaMA via Ollama and return the response."""

@@ -9,8 +9,8 @@ import signal
 import threading
 import itertools
 import time
-from constants import constants
-from config import config
+from terminal_ai.constants import constants
+from terminal_ai.config import config
 import platform
 
 # Load command history (Persistent across sessions)

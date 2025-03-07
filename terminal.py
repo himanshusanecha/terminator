@@ -9,10 +9,10 @@ import signal
 import threading
 import itertools
 import time
-from utils import utils, command_utils
-from model import inference
-from constants import prompts, constants
-from config import config
+from terminal_ai.utils import utils, command_utils
+from terminal_ai.model import inference
+from terminal_ai.constants import prompts, constants
+from terminal_ai.config import config
 
 current_process = None
 
