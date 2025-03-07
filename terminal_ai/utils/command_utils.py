@@ -52,3 +52,46 @@ def extract_commands(response):
     install_cmd = response.split("dependency:")[-1].split("command:")[0].strip() if "dependency:" in response else None
     final_cmd = response.split("command:")[-1].strip() if "command:" in response else None
     return check_cmd, install_cmd, final_cmd
+
+
+import re
+
+
+def is_dangerous_command(command, os_type):
+    """
+    Check if the provided command is potentially dangerous based on the OS.
+    Returns True if the command matches any dangerous pattern.
+    """
+    dangerous_patterns = {
+        "linux": [
+            r"\brm\s+-rf\s+/\b",  # rm -rf /: Remove the root directory recursively
+            r"\bsudo\s+rm\s+-rf\s+/\b",  # sudo rm -rf /: Same as above with sudo
+            r"\bdd\s+if=.*of=/dev/sd[a-z]\b",  # dd writing directly to disk devices
+            r"\bmkfs(\.\w+)?\b",  # Filesystem creation (formatting)
+            r":\(\)\s*{:\|:&};:",  # Fork bomb pattern
+            r"\bshutdown\s+-h\s+now\b",  # Immediate shutdown command
+            r"\bfdisk\s+/dev/sd[a-z]\b",  # Direct disk manipulation using fdisk
+            r"\bparted\s+/dev/sd[a-z]\b",  # Direct disk partitioning using parted
+        ],
+        "macos": [
+            r"\brm\s+-rf\s+/\b",  # rm -rf /: Remove the root directory recursively
+            r"\bsudo\s+rm\s+-rf\s+/\b",  # sudo rm -rf /: Same as above with sudo
+            r"\bbrew\s+clean\s+all\b",  # brew clean all: Cleans Homebrew caches (can be destructive)
+            r":\(\)\s*{:\|:&};:",  # Fork bomb pattern
+            r"\bshutdown\s+-h\s+now\b",  # Immediate shutdown command
+            r"\bfdisk\s+/dev/disk\d+\b",  # Disk manipulation on macOS using fdisk (if applicable)
+            r"\bparted\s+/dev/disk\d+\b",  # Partition editor commands (if used)
+        ],
+        "windows": [
+            r"\bDEL\s+/S\s+/Q\s+C:\\",  # Recursive delete command on drive C:
+            r"\bformat\s+C:\b",  # Format drive C:
+            r"\bshutdown\s+/s\b",  # Shutdown command
+            r"\bPowerShell\s+Remove-Item\s+-Recurse\b",  # Potentially dangerous PowerShell deletion
+        ]
+    }
+
+    patterns = dangerous_patterns.get(os_type, [])
+    for pattern in patterns:
+        if re.search(pattern, command, re.IGNORECASE):
+            return True
+    return False

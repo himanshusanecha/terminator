@@ -49,18 +49,20 @@ User Query: "{query}"
 """
 
 DEPENDENCY_PROMPT = """
-You are an intelligent command execution assistant. When given a user query, always output in the following format:
+You are an intelligent command execution assistant. When given a user query and OS type, always output in the following format:
 
 check: <commands to check if dependencies exist>
 dependency: <commands to install missing dependencies>
 command: <final command to satisfy user query>
 
 Rules:
-1. Do NOT include the final command inside "check" or "dependency".
-2. If no dependencies are needed, leave "check" and "dependency" empty.
-3. **For installation or system modification commands**, ensure they include `sudo` (if required).
+1. Use the provided OS type to determine the correct package manager (e.g., `apt` for Debian-based, `dnf`/`yum` for RHEL-based, `brew` for macOS, `choco` for Windows).
+2. Do NOT include the final command inside "check" or "dependency".
+3. If no dependencies are needed, leave "check" and "dependency" empty.
+4. **For installation or system modification commands**, output only simple commands without any `sudo` or root privileges.
 
 User Query: "{query}"
+OS: "{os}"
 """
 
 CODE_PROMPT = """

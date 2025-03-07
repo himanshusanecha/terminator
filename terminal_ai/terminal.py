@@ -12,7 +12,7 @@ import time
 from utils import utils, command_utils
 from model import inference
 from constants import prompts, constants
-
+from config import config
 
 current_process = None
 
@@ -58,7 +58,7 @@ def run_terminal():
 
         if intent.lower() == "execute":
             # Step 3: Get dependency check & installation commands
-            dependency_prompt = prompts.DEPENDENCY_PROMPT.format(query=user_input)
+            dependency_prompt = prompts.DEPENDENCY_PROMPT.format(query=user_input, os=config.os)
             response = inference.query_llama(dependency_prompt)
 
             if not response:
@@ -69,8 +69,9 @@ def run_terminal():
 
             print(f"Missing dependencies: {install_command}")
             print(f"Check command: {check_command}")
+
             # Step 4: Check and install dependencies
-            if check_command and not command_utils.check_dependency_installed(check_command) and install_command is not None:
+            if check_command and not command_utils.check_dependency_installed(check_command) and install_command is not None and command_utils.is_dangerous_command(install_command, config.os) is False:
                 print(constants.COLORS["warning"] + "Missing dependencies. Installing now...")
                 command_utils.install_dependencies(install_command)
 
@@ -101,4 +102,5 @@ def run_terminal():
             print(constants.COLORS["error"] + "Invalid intent detected. Try again.")
 
 if __name__ == "__main__":
+    config.os = utils.get_os_type()
     run_terminal()

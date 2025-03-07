@@ -11,6 +11,7 @@ import itertools
 import time
 from constants import constants
 from config import config
+import platform
 
 # Load command history (Persistent across sessions)
 HISTORY_FILE = os.path.expanduser("~/.terminal_ai_history")
@@ -77,3 +78,16 @@ def clean_markdown(content):
     content = re.sub(r'\[.*?\]\(.*?\)', '', content)
 
     return content
+
+def get_os_type():
+    """Detect the current operating system."""
+    os_type = platform.system().lower()
+
+    if os_type == 'linux':
+        return 'linux'
+    elif os_type == 'darwin':
+        return 'macos'
+    elif os_type == 'windows':
+        return 'windows'
+    else:
+        raise EnvironmentError("Unsupported OS detected.")
