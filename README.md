@@ -1,8 +1,39 @@
-# My Terminal AI
+# AI Terminator
 
-My Terminal AI is a Python-based terminal assistant that can execute system commands, provide general information, and interact with an LLaMA model via Ollama.
+![PyPI](https://img.shields.io/pypi/v/ai-terminator) ![License](https://img.shields.io/github/license/himanshusanecha/terminator) ![Python](https://img.shields.io/pypi/pyversions/ai-terminator)
 
-## Installation
+AI-powered terminal leveraging LLaMA via Ollama to execute commands, handle NLP queries, and enhance user productivity.
 
-To install, use pip:
+## ✨ Features
+✅ **Natural Language to Command Conversion** - Convert natural language queries into Bash, Sh, or OS-specific terminal commands.  
+✅ **Direct Execution of Known Commands** - Executes familiar commands instantly without additional processing.  
+✅ **Interactive Chat** - Directly chat with AI within your terminal.  
+✅ **Web Search (Upcoming)** - Search the web for information right from your terminal.  
+✅ **File & Code Editing (Upcoming)** - Edit files and code directly through the terminal using AI assistance.  
 
+## 🚀 Installation
+Install the package via PyPI:
+
+```
+pip install ai-terminator
+```
+
+## 🛠️ Usage
+Run the AI-powered terminal with:
+
+```
+ai-terminator
+```
+
+## 📦 Repository & Contributions
+GitHub: [Terminator Repository](https://github.com/himanshusanecha/terminator)
+
+Contributions are welcome! Feel free to fork, submit issues, or create pull requests.
+
+## 📜 License
+This project is licensed under the MIT License.
+
+---
+
+🔗 **PyPI Package:** [ai-terminator](https://pypi.org/project/ai-terminator/)  
+📌 **Author:** [Himanshu Sanecha](https://github.com/himanshusanecha)
