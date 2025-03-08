@@ -12,7 +12,21 @@ AI-powered terminal leveraging LLaMA via Ollama to execute commands, handle NLP 
 ✅ **File & Code Editing (Upcoming)** - Edit files and code directly through the terminal using AI assistance.  
 
 ## 🚀 Installation
-Install the package via PyPI:
+
+### Install Ollama (Required for AI Processing)  
+Ollama is required to run LLaMA-based models. Install it based on your OS:  
+
+#### **For macOS & Linux:**  
+```sh
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+#### **For Windows:**
+```
+Download and install Ollama from the official website: https://ollama.com/download
+```
+
+### **Install the package via PyPI:**
 
 ```
 pip install ai-terminator
